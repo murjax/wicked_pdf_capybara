@@ -21,7 +21,7 @@ module Capybara
     end
 
     def parsed_pdf_text
-      pdf_reader.pages.map(&:text).first.gsub("\n", ' ').gsub("\t", ' ')
+      pdf_reader.pages.map(&:text).first.gsub("\n", ' ').gsub("\t", ' ').squeeze(' ');
     end
   end
 end
