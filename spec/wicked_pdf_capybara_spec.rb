@@ -6,14 +6,14 @@ RSpec.describe WickedPdfCapybara do
   end
 
   describe 'Capybara::Session#pdf_text' do
-    subject { WickedPdfCapybara::Capybara::Session.new.pdf_text }
+    subject { Capybara::Session.new.pdf_text }
     before(:each) do
-      expect_any_instance_of(WickedPdfCapybara::Capybara::Session).to receive_message_chain(:source, :force_encoding).and_return(source)
+      expect_any_instance_of(Capybara::Session).to receive_message_chain(:source, :force_encoding).and_return(source)
     end
     context 'can be parsed by pdf reader' do
       let(:source) { File.read('spec/encoded_pdf.txt') }
-      it 'returns text stripped of newlines and tabs' do
-        expect(subject).to eq("Document 01  Just pretend you are a whisper floating across a mountain. Don't fiddle with it all day. Get tough with it, get strong.")
+      it 'returns text stripped of newlines, tabs, and extra whitespace' do
+        expect(subject).to eq("Document 01 Just pretend you are a whisper floating across a mountain. Don't fiddle with it all day. Get tough with it, get strong.")
       end
     end
 
